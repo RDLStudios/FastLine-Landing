@@ -187,6 +187,11 @@ body {
     transition: background-color 0.3s;
 }
 
+.submit-btn-container {
+    display: flex;
+    justify-content: center;
+}
+
 .submit-btn:hover {
     background-color: #333;
 }
