@@ -140,3 +140,60 @@ const animateOnScroll = () => {
 
 window.addEventListener("scroll", animateOnScroll);
 window.addEventListener("load", animateOnScroll);
+
+// Datos de las preguntas frecuentes
+const faqData = [
+  {
+    question: "¿Cómo funciona FastLine?",
+    answer:
+      "FastLine permite a los negocios generar un código QR único que pueden mostrar en su establecimiento. Los clientes escanean el código QR y se unen a la cola virtual a través de nuestra web app. Recibirán notificaciones cuando sea su turno, permitiéndoles esperar donde quieran.",
+  },
+  {
+    question: "¿Cómo se notifica a los clientes cuando es su turno?",
+    answer:
+      "Los clientes reciben notificaciones por correo electrónico cuando es su turno. También pueden ver su posición en la cola y el tiempo estimado de espera en tiempo real a través de la web app.",
+  },
+  {
+    question: "¿Puedo cambiar mi plan en cualquier momento?",
+    answer:
+      "Sí, puedes actualizar o cambiar tu plan en cualquier momento. Los cambios se aplicarán en tu próximo ciclo de facturación.",
+  },
+];
+
+// Función para crear el HTML de una pregunta frecuente
+function createFAQItem(faq) {
+  return `
+        <div class="faq-item">
+            <div class="faq-question">${faq.question}</div>
+            <div class="faq-answer">${faq.answer}</div>
+        </div>
+    `;
+}
+
+// Función para inicializar las preguntas frecuentes
+function initFAQ() {
+  const faqContainer = document.getElementById("faq-container");
+  if (!faqContainer) return;
+
+  // Crear el HTML de todas las preguntas
+  faqContainer.innerHTML = faqData.map(createFAQItem).join("");
+
+  // Añadir event listeners a todas las preguntas
+  const faqItems = faqContainer.querySelectorAll(".faq-item");
+  faqItems.forEach((item) => {
+    const question = item.querySelector(".faq-question");
+    question.addEventListener("click", () => {
+      // Cerrar todas las preguntas abiertas
+      faqItems.forEach((otherItem) => {
+        if (otherItem !== item) {
+          otherItem.classList.remove("active");
+        }
+      });
+      // Toggle la pregunta actual
+      item.classList.toggle("active");
+    });
+  });
+}
+
+// Inicializar cuando el DOM esté listo
+document.addEventListener("DOMContentLoaded", initFAQ);
